@@ -5,8 +5,10 @@ export const detectOS = (ua?: string): DetectOSResult => {
     ua = ua || navigator.userAgent
     const ipad = /(iPad).*OS\s([\d_]+)/.test(ua)
     const iphone = !ipad && /(iPhone\sOS)\s([\d_]+)/.test(ua)
+    const isIPadOs = !!(navigator.userAgent.match(/(iPad)/) || (navigator.platform === "MacIntel" && typeof navigator.standalone !== "undefined"))
+    
     const android = /(Android);?[\s/]+([\d.]+)?/.test(ua)
-    const ios = iphone || ipad
+    const ios = iphone || ipad || isIPadOs
 
     return { ios, android }
 }
